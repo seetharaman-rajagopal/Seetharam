@@ -5,41 +5,47 @@
 
 
 using namespace std;
-int global = 0;
-std::mutex mu;
-
-
-//int globalnumber = 0;
-std::atomic<int> globalnumber = 0;
 
 
 
-// add numbers from 0 10000 using global variable
-// function add 1-100
-// 100 thread adds does the same
-
-void incrementHundred()
+void printme(int arr[], int size)
 {
-    for(int index =0; index< 100;index++)
+    for(int index =0; index < size;index++)
     {
-        globalnumber++;
+        cout << arr[index] << " ";
+    }
+    cout << endl;
+}
+
+template<typename  T>
+void swapme(T& a, T &b)
+{
+    auto temp = a;
+    a = b;
+    b = temp;
+}
+
+void bubblesort(int arr[], int nsize)
+{
+    for (int index =0; index < nsize;index++)
+    {
+        for(int subindex = 0; subindex < nsize -(1 + index) ; subindex++)
+        {
+            cout << "subindex " << subindex +1 << endl;
+            if(arr[subindex] > arr[subindex+1])
+            {
+                swapme(arr[subindex], arr[subindex+1]);
+            }
+        }
     }
 }
 
 int main()
 {
-    std::vector<std::thread> addingtheads;
-    for(int index = 0;index <100;index++)
-    {
-        auto t = std::thread(incrementHundred);
-        addingtheads.push_back(std::move(t));
-        
-    }
-    
-    for(auto& eachth : addingtheads)
-    {
-        eachth.join();
-    }
-    
-    cout << globalnumber << endl;
+    int arr[5] = {1,22,2,222,2};
+    int narraysize = sizeof(arr)/sizeof(int);
+    cout << "array size is " << narraysize << endl;
+    bubblesort(arr,narraysize);
+    printme(arr,narraysize);
+    cout << endl;
 }

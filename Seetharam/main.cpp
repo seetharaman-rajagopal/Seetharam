@@ -1,64 +1,38 @@
-//
-//  main.cpp
-//  Seetharam
-//
-//  Created by Seetharaman Rajagopal on 03/04/22.
-//
-
+#include <condition_variable>
 #include <iostream>
-#include <memory.h>
+#include <thread>
+
 
 using namespace std;
+int global = 0;
+std::mutex mu;
 
-namespace sorting
+
+
+//std::unique_lock use the RAII pattern.
+// create a local variable of type std::unique_lock passing the mutex as parameter.
+//When the unique_lock is constructed it will lock the mutex, and it gets destructed it will unlock the mutex.
+
+//race condition
+
+int main()
 {
-    template <typename T>
-    void swapit(T& a,T& b)
+    for(int index =0; index< 100; index++)
     {
-        auto empty = a;
-        a = b;
-        b = empty;
-    }
-    
-    void printme( int arr[], int size)
-    {
-        for(int index =0;index< size; index++)
-        {
-            cout<< arr[index] << " ";
-        }
-        cout << endl;
+        auto t1 = std::thread([]()
+            {
+            global = 1;
+            
+        });
         
+        auto t2 = std::thread([](){
+            global = 2;
+            
+        });
         
+        t1.join();
+        t2.join();
+        cout << global << endl;
+        std::cout  << endl;
     }
-    //
-    //Compare minimum with the second element.
-    //If the second element is smaller than minimum, assign the second element as minimum.
-
-    void selectionSort(int array[], int size) {
-      for (int step = 0; step < size - 1; step++) {
-        int min_idx = step;
-        for (int i = step + 1; i < size; i++) {
-
-          // To sort in descending order, change > to < in this line.
-          // Select the minimum element in each loop.
-          if (array[i] < array[min_idx])
-            min_idx = i;
-        }
-
-        // put min at the correct position
-        swapit(array[min_idx], array[step]);
-      }
-    }
-}
-
-int main(int argc, const char * argv[])
-{
-    int arr[] = {1,23,123,3,1,2,123,123,23};
-    int size  = sizeof(arr)/sizeof(int);
-    cout << size << endl;
-    sorting::selectionSort(arr,size);
-    sorting::printme(arr,size);
-
-    cout << endl;
-    return 0;
 }

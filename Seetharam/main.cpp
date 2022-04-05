@@ -1,6 +1,7 @@
 #include <condition_variable>
 #include <iostream>
 #include <thread>
+#include <vector>
 
 
 using namespace std;
@@ -8,31 +9,37 @@ int global = 0;
 std::mutex mu;
 
 
+//int globalnumber = 0;
+std::atomic<int> globalnumber = 0;
 
-//std::unique_lock use the RAII pattern.
-// create a local variable of type std::unique_lock passing the mutex as parameter.
-//When the unique_lock is constructed it will lock the mutex, and it gets destructed it will unlock the mutex.
 
-//race condition
+
+// add numbers from 0 10000 using global variable
+// function add 1-100
+// 100 thread adds does the same
+
+void incrementHundred()
+{
+    for(int index =0; index< 100;index++)
+    {
+        globalnumber++;
+    }
+}
 
 int main()
 {
-    for(int index =0; index< 100; index++)
+    std::vector<std::thread> addingtheads;
+    for(int index = 0;index <100;index++)
     {
-        auto t1 = std::thread([]()
-            {
-            global = 1;
-            
-        });
+        auto t = std::thread(incrementHundred);
+        addingtheads.push_back(std::move(t));
         
-        auto t2 = std::thread([](){
-            global = 2;
-            
-        });
-        
-        t1.join();
-        t2.join();
-        cout << global << endl;
-        std::cout  << endl;
     }
+    
+    for(auto& eachth : addingtheads)
+    {
+        eachth.join();
+    }
+    
+    cout << globalnumber << endl;
 }

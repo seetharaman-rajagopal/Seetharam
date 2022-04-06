@@ -2,11 +2,10 @@
 #include <iostream>
 #include <thread>
 #include <vector>
-
+#include <time.h>
+#include <stdlib.h>
 
 using namespace std;
-
-
 
 void printme(int arr[], int size)
 {
@@ -31,7 +30,6 @@ void bubblesort(int arr[], int nsize)
     {
         for(int subindex = 0; subindex < nsize -(1 + index) ; subindex++)
         {
-            cout << "subindex " << subindex +1 << endl;
             if(arr[subindex] > arr[subindex+1])
             {
                 swapme(arr[subindex], arr[subindex+1]);
@@ -42,9 +40,16 @@ void bubblesort(int arr[], int nsize)
 
 int main()
 {
-    int arr[5] = {1,22,2,222,2};
+    int arr[5] {};
     int narraysize = sizeof(arr)/sizeof(int);
+    auto var = time(NULL);
+    srand(var);
+    for(int index = 0; index < narraysize; index++)
+    {
+        arr[index] = rand()%100;
+    }
     cout << "array size is " << narraysize << endl;
+    printme(arr,narraysize);
     bubblesort(arr,narraysize);
     printme(arr,narraysize);
     cout << endl;

@@ -16,16 +16,22 @@ void printme(int arr[], int size)
     cout << endl;
 }
 
-template<typename  T>
-void swapme(T& a, T &b)
-{
-    auto temp = a;
-    a = b;
-    b = temp;
-}
+//template<typename  T>
+//void swapme(T& a, T &b)
+//{
+//    auto temp = a;
+//    a = b;
+//    b = temp;
+//}
 
 void bubblesort(int arr[], int nsize)
 {
+    auto swapme = [](int& a, int& b)
+    {
+        auto temp = a;
+        a = b;
+        b = temp;
+    };
     for (int index =0; index < nsize;index++)
     {
         for(int subindex = 0; subindex < nsize -(1 + index) ; subindex++)

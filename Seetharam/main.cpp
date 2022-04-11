@@ -8,87 +8,40 @@
 
 using namespace std;
 
-
-class Sample
+namespace seetha
 {
-public:
-    int m_size;
-    int * arr;
-public:
-    Sample(int psize =5):m_size(psize),arr(nullptr)
+    int strlengthwithoutnull(const char* name)
     {
-        cout << "constructior is called" << endl;
-        if(arr == nullptr)
+        int count = 0;
+        while(name[count] != '\0')
         {
-            arr = new int[m_size]{};
+            count++;
         }
-        
+        return  count;
     }
-    Sample(const Sample& rsample)
-    {
-        cout << "copy constructor is called " << endl;
-        if(this != &rsample)
-        {
-            m_size = rsample.m_size;
-            arr = new int[m_size];
-            for(int index= 0;index< m_size;index++)
-            {
-                arr[index] = rsample.arr[index];
-            }
-        }
-    }
-    
-    Sample(Sample&& rsample)
-    {
-        cout << "move constructor is called" << endl;
-        if(this != &rsample)
-        {
-            m_size = rsample.m_size;
-            arr = rsample.arr;
-            rsample.arr = nullptr;
-        }
-        
-    }
-    
-    void print()
-    {
-        for(int index =0;index < m_size; index++)
-        {
-            std::cout << arr[index] << endl;
-        }
-    }
-    
-    ~Sample()
-    {
-        delete [] arr;
-        arr = nullptr;
-    }
-};
 
-Sample createSample()
-{
-    Sample sample(5);
-    for(int index = 0;index < sample.m_size;index++)
+    void reverse(char* str)
     {
-        sample.arr[index] = index*10;
+        int startindex = 0;
+        int endindex = strlengthwithoutnull(str) -1;
+        while(startindex <= endindex)
+        {
+            auto temp = str[startindex];
+            str[startindex] = str[endindex];
+            str[endindex] = temp;
+            startindex++;
+            endindex--;
+        }
+        cout << str << endl;
     }
-    return sample;
 }
-
-void usesample(Sample sample)
-{
-    sample.print();
-}
-
 
 int main()
 {
-    Sample sample = createSample();
-    usesample(sample);
-    
-    usesample(std::move(createSample()));
-    
-    
-    
+    int sizeofstr = seetha::strlengthwithoutnull("seetha");
+    cout << sizeofstr << endl;
+    char * name = new char[sizeofstr+1];
+    strcpy(name, "seetha");
+    seetha::reverse(name);
     return 0;
 }

@@ -8,40 +8,58 @@
 
 using namespace std;
 
-namespace seetha
-{
-    int strlengthwithoutnull(const char* name)
-    {
-        int count = 0;
-        while(name[count] != '\0')
-        {
-            count++;
-        }
-        return  count;
-    }
 
-    void reverse(char* str)
+
+class Node
+{
+public:
+    Node(int pdata):data(pdata),next(nullptr)
     {
-        int startindex = 0;
-        int endindex = strlengthwithoutnull(str) -1;
-        while(startindex <= endindex)
-        {
-            auto temp = str[startindex];
-            str[startindex] = str[endindex];
-            str[endindex] = temp;
-            startindex++;
-            endindex--;
-        }
-        cout << str << endl;
+        
     }
-}
+    Node* next;
+    int data;
+};
+
+class Linklist
+{
+private:
+    Node* head = nullptr;
+    Node* tail = nullptr;
+public:
+    bool detect_if_linear()
+    {
+        Node* current = head;
+        Node* jumperNode = head;
+        bool bCircular = false;
+        while (current != nullptr)
+        {
+            if( current == jumperNode)
+            {
+                bCircular = true;
+                break;
+            }
+            current = current->next;
+            if(jumperNode != nullptr)
+            {
+                jumperNode = jumperNode->next;
+                if(jumperNode != nullptr)
+                {
+                    jumperNode = jumperNode->next;
+                }
+            }
+        }
+    
+        return  bCircular;
+      }
+};
+
 
 int main()
 {
-    int sizeofstr = seetha::strlengthwithoutnull("seetha");
-    cout << sizeofstr << endl;
-    char * name = new char[sizeofstr+1];
-    strcpy(name, "seetha");
-    seetha::reverse(name);
+    
+    
+    cout << endl;
+   
     return 0;
 }

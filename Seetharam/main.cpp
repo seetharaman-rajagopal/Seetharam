@@ -17,35 +17,28 @@ using namespace std;
 
 class Solution {
 public:
-    bool canConstruct(string ransomNote, string magazine)
+    int numberOfSteps(int num)
     {
-        std::unordered_map<char, int> letters_count;
-        for(auto letter:magazine)
-        {
-            ++letters_count[letter];
-        }
-        
-        for(auto eachchar:ransomNote)
-        {
-            if(letters_count[eachchar] == 0)
+        auto count  =0;
+        while (num !=0) {
+            if(num % 2 == 0)
             {
-                return false;
+               num = (int)num/2;
             }
             else
             {
-                --letters_count[eachchar];
+                num = num -1;
             }
+            count++;
         }
-        
-        return true;
+        return count;
     }
 };
-
  
 // Driver Code
 int main()
 {
     Solution sol;
-    cout << sol.canConstruct("aaaa","malayalam") << endl;;
+    cout << sol.numberOfSteps(400) << endl;;
 
 }

@@ -25,7 +25,6 @@
 /* Begin PBXFileReference section */
 		C7941C3627F951FD006CBA1A /* Seetharam */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Seetharam; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7941C3927F951FD006CBA1A /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		C7FC7F09281E375900673CC5 /* statement.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = statement.rtf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +58,6 @@
 			isa = PBXGroup;
 			children = (
 				C7941C3927F951FD006CBA1A /* main.cpp */,
-				C7FC7F09281E375900673CC5 /* statement.rtf */,
 			);
 			path = Seetharam;
 			sourceTree = "<group>";
